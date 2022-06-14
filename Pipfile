@@ -6,7 +6,7 @@ name = "pypi"
 [packages]
 django = "4.0.5"
 channels = "3.0.4"
-channels-redis = "3.4.0"
+channels-postgres = "0.0.4"
 
 [dev-packages]
 selenium = "*"

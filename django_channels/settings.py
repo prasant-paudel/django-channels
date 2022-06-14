@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'channels',
+    'channels_postgres',
 
     'chat',
 ]
@@ -76,9 +77,15 @@ ASGI_APPLICATION = 'django_channels.asgi.application'
 
 CHANNEL_LAYERS = {
     'default': {
-        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'BACKEND': 'channels_postgres.core.PostgresChannelLayer',
         'CONFIG': {
-            "hosts": [('127.0.0.1', 6379),],
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'postgres',
+            'USER': 'postgres',
+            'PASSWORD': 'postgres',
+            'HOST': '127.0.0.1',
+            'PORT': '5432',
+            # 'symmetric_encryption_keys': [SECRET_KEY],
         },
     },
 }
@@ -88,12 +95,25 @@ CHANNEL_LAYERS = {
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+		'ENGINE': 'django.db.backends.postgresql_psycopg2',
+		'NAME': 'postgres',
+		'USER': 'postgres',
+		'PASSWORD': 'postgres',
+		'HOST': '127.0.0.1',
+		'PORT': '5432',
         'TEST': {
+            'ENGINE': 'django.db.backends.sqlite3',
             'NAME': BASE_DIR / 'db.sqlite3',
         }
-    }
+    },
+    'channels_postgres': {
+		'ENGINE': 'django.db.backends.postgresql_psycopg2',
+		'NAME': 'postgres',
+		'USER': 'postgres',
+		'PASSWORD': 'postgres',
+		'HOST': '127.0.0.1',
+		'PORT': '5432',
+	},
 }
 
 
